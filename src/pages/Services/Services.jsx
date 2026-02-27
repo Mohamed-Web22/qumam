@@ -180,35 +180,31 @@ const Services = () => {
   return (
     <MotionContainer>
       <div className="relative z-10">
-        <section ref={heroRef} className="relative min-h-[60vh] flex items-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)' }}>
+        <section className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)' }}>
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 py-20 w-full relative z-10">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="max-w-xl mx-auto">
-                <div className="relative group">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
-                  <input type="text" placeholder={lang === 'ar' ? 'ابحث...' : 'Search...'} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full py-4 pl-12 pr-4 rounded-2xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent backdrop-blur-sm transition-all" />
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full"><path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#0f172a"/></svg>
-          </div>
-        </section>
-        
-        <section className="py-20 bg-slate-900">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{lang === 'ar' ? 'أحدث الفيديوهات' : 'Latest Videos'}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{lang === 'ar' ? 'اختر من مكتبتنا' : 'Choose from our library'}</p>
             </motion.div>
+            
+            {/* Search Bar */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="max-w-2xl mx-auto mb-8">
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
+                <input type="text" placeholder={lang === 'ar' ? 'ابحث في الفيديوهات...' : 'Search videos...'} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full py-4 pl-12 pr-4 rounded-2xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent backdrop-blur-sm transition-all" />
+              </div>
+            </motion.div>
+            
+            {/* Filters */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-wrap justify-center gap-3 mb-10">
               {filters.map((filter) => (<FilterChip key={filter.id} active={activeFilter === filter.id} onClick={() => setActiveFilter(filter.id)} label={filter.label} count={filter.count} />))}
             </motion.div>
+            
+            {/* Video Grid */}
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <AnimatePresence mode="popLayout">{filteredVideos.map((video, i) => (<VideoCard key={video.id} video={video} index={i} />))}</AnimatePresence>
             </motion.div>

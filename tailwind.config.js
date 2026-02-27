@@ -20,6 +20,11 @@ export default {
         // Additional accent colors
         'accent-blue': '#2a4a7f',
         'accent-gold': '#D4A574',
+        // New Brand Colors - For Navbar Only
+        'brand-dark': '#0f2145',
+        'brand-medium': '#414d76',
+        'brand-light': '#e9efff',
+        'brand-gold': '#d2a517',
       },
       fontFamily: {
         // Make El Messiri the primary font for all text; fallback to IBM Plex for Arabic and system fonts
